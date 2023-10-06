@@ -24,6 +24,71 @@ class Tree {
     }
 
 
+    find(value,root=this.root){
+        if(root === null){
+            return "Not Found"
+        }
+ 
+        if(value == root.data ){
+            return "Value Found"
+        }
+        if(value > root.data){
+            return this.find(value,root.right)
+        }else{
+            return this.find(value,root.left)
+        }
+        
+    }
+
+
+    levelOrder(root = this.root){
+
+        if (root == null) return;
+
+        let queue = []
+        queue.push(root)
+
+        while(queue.length > 0){
+            let node = queue.shift()
+            
+            
+            if(node.left !== null) queue.push(node.left)
+            if(node.right != null) queue.push(node.right)
+            
+            console.log(node.data)
+
+
+
+    }
+    
+}
+
+
+    levelOrderRecursive(root= this.root){
+
+        let result = []
+
+        function traverse (node, level){
+
+            if(node === null) return;
+
+            if(!result[level]){
+                result[level] = []
+            }
+
+            result[level].push(node.data)
+            
+            traverse(node.left, level+1)
+            traverse(node.right, level+1)
+        }
+
+
+        traverse(root,0)
+
+        return result
+    }
+    
+
     insert(value,root=this.root){
         
         if(root == null){
@@ -71,12 +136,11 @@ class Tree {
         else{
 
            let  parentNode = root
-
            let takeOverNode = root.right
 
            while(takeOverNode.left){
-            parentNode = takeOverNode
-            takeOverNode = takeOverNode.left
+                parentNode = takeOverNode
+                takeOverNode = takeOverNode.left
            }
 
 
@@ -88,13 +152,9 @@ class Tree {
 
            }
 
-
            root.data = takeOverNode.data
 
            return root
-
-
-           
            
         }
 
@@ -126,6 +186,9 @@ tree.insert(5)
 tree.insert(6)
 tree.prettyPrint()
 console.log("-----------When Deleted-----------\n\n\n");
-tree.deleteNode(23)
-tree.prettyPrint()
+// tree.deleteNode(23)
+console.log(tree.find(5))
+tree.levelOrder()
+// tree.prettyPrint()
 
+console.log(tree.levelOrderRecursive())
