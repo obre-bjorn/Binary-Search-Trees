@@ -26,11 +26,11 @@ class Tree {
 
     find(value,root=this.root){
         if(root === null){
-            return "Not Found"
+            return -1
         }
  
         if(value == root.data ){
-            return "Value Found"
+            return root
         }
         if(value > root.data){
             return this.find(value,root.right)
@@ -45,6 +45,7 @@ class Tree {
 
         if (root == null) return;
 
+        let result = []
         let queue = []
         queue.push(root)
 
@@ -55,14 +56,62 @@ class Tree {
             if(node.left !== null) queue.push(node.left)
             if(node.right != null) queue.push(node.right)
             
-            console.log(node.data)
-
-
+            result.push(node.data)  
 
     }
+
+    return result
     
 }
 
+    height(node = this.root){
+
+        if(node === null) return -1
+
+        const leftHeight = this.height(node.left);
+        const rightHeight = this.height(node.right);
+
+        // Return the maximum height of left or right subtree plus 1 (counting the current edge)
+        
+        
+        console.log(leftHeight, rightHeight)
+
+
+        return Math.max(leftHeight, rightHeight) + 1;
+
+    }
+
+    depth(data){
+
+        let node = this.find(data)
+
+        let deep = 0
+
+       function traverse(root){
+            
+            if (node.data === -1){
+                return -1
+            }
+    
+
+            if(node.data === root.data){
+                return 
+            }
+
+            if(node.data > root.data){
+                deep++
+                traverse(root.right)
+            }else{
+                deep++
+                traverse(root.left)
+            }
+        }
+
+            traverse(this.root)
+            return deep
+
+
+    }
 
     levelOrderRecursive(root= this.root){
 
@@ -88,6 +137,85 @@ class Tree {
         return result
     }
     
+
+    inOrder(callback){
+
+        let result = []
+
+        function traverse(node){
+
+            if (node === null) return
+
+            traverse(node.left)
+
+            if(callback){
+                callback(node)
+            }else{
+                result.push(node.data)
+            }
+
+            traverse(node.right)
+        }
+
+
+        traverse(this.root)
+
+
+        return result
+    }
+
+    preOrder(callback){
+
+        let result = []
+
+        function traverse(node){
+
+            if (node === null) return ;
+
+            if(callback){
+                callback(node)
+
+            }else{
+
+                result.push(node.data)
+            }
+
+            traverse(node.left)
+            traverse(node.right)
+
+        }
+        traverse(this.root)
+
+        return result
+
+    }
+
+
+    postOrder(callback){
+        let result = []
+
+        function traverse(node){
+
+            if(node === null) return
+
+            traverse(node.left)
+            traverse(node.right)
+
+            if(callback){
+                callback(node)
+            }else{
+                result.push(node.data)
+            }
+
+        }
+
+
+        traverse(this.root)
+        return result
+
+    }
+
+
 
     insert(value,root=this.root){
         
@@ -190,5 +318,8 @@ console.log("-----------When Deleted-----------\n\n\n");
 console.log(tree.find(5))
 tree.levelOrder()
 // tree.prettyPrint()
-
-console.log(tree.levelOrderRecursive())
+console.log(tree.inOrder())
+console.log(tree.preOrder())
+console.log(tree.postOrder())
+console.log(tree.height());
+console.log(tree.depth(687));
