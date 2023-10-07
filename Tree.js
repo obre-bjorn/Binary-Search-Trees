@@ -74,7 +74,7 @@ class Tree {
         // Return the maximum height of left or right subtree plus 1 (counting the current edge)
         
         
-        console.log(leftHeight, rightHeight)
+        // console.log(leftHeight, rightHeight)
 
 
         return Math.max(leftHeight, rightHeight) + 1;
@@ -215,6 +215,37 @@ class Tree {
 
     }
 
+    isBalanced(node=this.root){
+
+        if(node === null){
+            return -1
+        }
+
+        let leftHeight = this.height(node.left) 
+        let rightHeight = this.height(node.right) 
+
+        // console.log(node.data)
+        return leftHeight-rightHeight
+
+        
+    }
+
+    rebalance(){
+        let checkBalanced = this.isBalanced() <= 1
+        let array = []
+
+        function pushNode(node) {
+            array.push(node.data)
+        }
+        if(!checkBalanced){
+            this.inOrder(pushNode)
+        }
+
+        this.root = this.buildTree(array)
+
+        this.prettyPrint()
+        return this.root
+    }
 
 
     insert(value,root=this.root){
@@ -311,15 +342,22 @@ tree.buildTree(sortedArray)
 tree.prettyPrint()
 tree.insert(3)
 tree.insert(5)
-tree.insert(6)
-tree.prettyPrint()
+tree.insert(2)
+tree.insert(1)
+
+// tree.prettyPrint()
 console.log("-----------When Deleted-----------\n\n\n");
 // tree.deleteNode(23)
-console.log(tree.find(5))
+// console.log(tree.find(5))
 tree.levelOrder()
-// tree.prettyPrint()
+tree.prettyPrint()
 console.log(tree.inOrder())
 console.log(tree.preOrder())
 console.log(tree.postOrder())
 console.log(tree.height());
 console.log(tree.depth(687));
+console.log(tree.isBalanced());
+tree.rebalance();
+console.log(tree.isBalanced());
+
+
