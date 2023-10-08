@@ -2,11 +2,12 @@ import Node from "./Node.js"
 import mergeSort from "./mergeSort.js"
 
 class Tree {
-    constructor(){
+    constructor(array){
         this.root = null
+        this.array = mergeSort(array)
     }
 
-    buildTree(array){
+    buildTree(array =this.array){
 
         if(!array.length){
             return null
@@ -134,7 +135,7 @@ class Tree {
 
         traverse(root,0)
 
-        return result
+        return result.flat()
     }
     
 
@@ -231,7 +232,7 @@ class Tree {
     }
 
     rebalance(){
-        let checkBalanced = this.isBalanced() <= 1
+        let checkBalanced = this.isBalanced() === 1 || this.checkBalanced === 0
         let array = []
 
         function pushNode(node) {
@@ -335,29 +336,30 @@ class Tree {
 
 
 
-let tree = new Tree()
-let unsortedArray = [23,4,56,7,687]
-let sortedArray = mergeSort(unsortedArray)
-tree.buildTree(sortedArray)
-tree.prettyPrint()
-tree.insert(3)
-tree.insert(5)
-tree.insert(2)
-tree.insert(1)
-
+// let tree = new Tree()
+// let unsortedArray = [23,4,56,7,687]
+// let sortedArray = mergeSort(unsortedArray)
+// tree.buildTree(sortedArray)
 // tree.prettyPrint()
-console.log("-----------When Deleted-----------\n\n\n");
-// tree.deleteNode(23)
-// console.log(tree.find(5))
-tree.levelOrder()
-tree.prettyPrint()
-console.log(tree.inOrder())
-console.log(tree.preOrder())
-console.log(tree.postOrder())
-console.log(tree.height());
-console.log(tree.depth(687));
-console.log(tree.isBalanced());
-tree.rebalance();
-console.log(tree.isBalanced());
+// tree.insert(3)
+// tree.insert(5)
+// tree.insert(2)
+// tree.insert(1)
+
+// // tree.prettyPrint()
+// console.log("-----------When Deleted-----------\n\n\n");
+// // tree.deleteNode(23)
+// // console.log(tree.find(5))
+// tree.levelOrder()
+// tree.prettyPrint()
+// console.log(tree.inOrder())
+// console.log(tree.preOrder())
+// console.log(tree.postOrder())
+// console.log(tree.height());
+// console.log(tree.depth(687));
+// console.log(tree.isBalanced());
+// tree.rebalance();
+// console.log(tree.isBalanced());
 
 
+export default Tree

@@ -7,7 +7,7 @@ function mergeSort(array){
         // console.log( firstHalf)
         // console.log( secondHalf)
 
-       return sort( mergeSort(firstHalf),mergeSort(secondHalf))
+       return sort(mergeSort(firstHalf),mergeSort(secondHalf))
     
         // return sortedArray
     }
